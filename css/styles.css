@@ -2307,16 +2307,24 @@ body.is-modal-open {
   position: absolute;
   left: 0;
   right: 0;
-  top: auto;
-  bottom: calc(100% + 6px);
+  top: calc(100% + 6px);
+  bottom: auto;
   z-index: 40;
   background: #fff;
   border: 1px solid #e1e2ec;
   border-radius: 10px;
   padding: 6px;
   box-shadow: 0 12px 24px rgba(28, 29, 49, 0.12);
-  max-height: min(260px, 45vh);
+  max-height: min(280px, 45vh);
   overflow: auto;
+}
+
+.modal-select__menu.is-floating,
+.phone-country__menu.is-floating {
+  position: fixed;
+  right: auto;
+  margin: 0;
+  z-index: 3000;
 }
 
 .modal-select__option {

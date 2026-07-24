@@ -578,13 +578,107 @@ function onPhoneInput(event) {
   }
 }
 
+const floatingMenuHosts = new WeakMap();
+
+function mountFloatingMenu(menu, anchorEl, options) {
+  if (!menu || !anchorEl) {
+    return;
+  }
+  const settings = options || {};
+  if (!floatingMenuHosts.has(menu)) {
+    floatingMenuHosts.set(menu, {
+      parent: menu.parentElement,
+      next: menu.nextSibling,
+    });
+  }
+  if (menu.parentElement !== document.body) {
+    document.body.appendChild(menu);
+  }
+  menu.classList.add("is-floating");
+  menu.hidden = false;
+  positionFloatingMenu(menu, anchorEl, settings);
+}
+
+function positionFloatingMenu(menu, anchorEl, options) {
+  const settings = options || {};
+  const rect = anchorEl.getBoundingClientRect();
+  const gap = 6;
+  const minWidth = settings.minWidth || rect.width;
+  const width = Math.max(rect.width, minWidth);
+  let left = rect.left;
+  if (left + width > window.innerWidth - 8) {
+    left = Math.max(8, window.innerWidth - width - 8);
+  }
+  menu.style.position = "fixed";
+  menu.style.left = `${Math.round(left)}px`;
+  menu.style.width = `${Math.round(width)}px`;
+  menu.style.right = "auto";
+  menu.style.zIndex = "3000";
+
+  const menuHeight = Math.min(
+    settings.maxHeight || 280,
+    menu.scrollHeight || 280
+  );
+  const spaceBelow = window.innerHeight - rect.bottom - gap;
+  const spaceAbove = rect.top - gap;
+  const openUp = spaceBelow < menuHeight && spaceAbove > spaceBelow;
+
+  if (openUp) {
+    menu.style.top = "auto";
+    menu.style.bottom = `${Math.round(window.innerHeight - rect.top + gap)}px`;
+    menu.style.maxHeight = `${Math.round(Math.min(280, Math.max(120, spaceAbove - 8)))}px`;
+  } else {
+    menu.style.bottom = "auto";
+    menu.style.top = `${Math.round(rect.bottom + gap)}px`;
+    menu.style.maxHeight = `${Math.round(Math.min(280, Math.max(120, spaceBelow - 8)))}px`;
+  }
+}
+
+function unmountFloatingMenu(menu) {
+  if (!menu) {
+    return;
+  }
+  const host = floatingMenuHosts.get(menu);
+  menu.classList.remove("is-floating");
+  menu.style.position = "";
+  menu.style.left = "";
+  menu.style.width = "";
+  menu.style.right = "";
+  menu.style.top = "";
+  menu.style.bottom = "";
+  menu.style.maxHeight = "";
+  menu.style.zIndex = "";
+  if (!host || !host.parent) {
+    return;
+  }
+  if (menu.parentElement === host.parent) {
+    return;
+  }
+  if (host.next && host.next.parentNode === host.parent) {
+    host.parent.insertBefore(menu, host.next);
+  } else {
+    host.parent.appendChild(menu);
+  }
+}
+
 function closeAllCountryMenus() {
   document.querySelectorAll(".phone-country").forEach((el) => {
     el.classList.remove("is-open");
-    const menu = el.querySelector(".phone-country__menu");
-    if (menu) {
-      menu.hidden = true;
-    }
+  });
+  document.querySelectorAll(".phone-country__menu").forEach((menu) => {
+    unmountFloatingMenu(menu);
+    menu.hidden = true;
+  });
+}
+
+function findHostedMenu(wrap, selector) {
+  const local = wrap.querySelector(selector);
+  if (local) {
+    return local;
+  }
+  return [...document.querySelectorAll(selector)].find((menu) => {
+    const host = floatingMenuHosts.get(menu);
+    return Boolean(host && host.parent && (host.parent === wrap || wrap.contains(host.parent)));
   });
 }
 
@@ -599,14 +693,13 @@ function onCountryToggle(event) {
   if (!wrap) {
     return;
   }
-  const menu = wrap.querySelector(".phone-country__menu");
+  const menu = findHostedMenu(wrap, ".phone-country__menu");
   const willOpen = !wrap.classList.contains("is-open");
   closeAllCountryMenus();
-  if (willOpen) {
+  closeTimeMenu();
+  if (willOpen && menu) {
     wrap.classList.add("is-open");
-    if (menu) {
-      menu.hidden = false;
-    }
+    mountFloatingMenu(menu, toggle, { minWidth: 220 });
   }
 }
 
@@ -917,6 +1010,7 @@ function closeTimeMenu() {
   const menu = document.getElementById("callback-time-menu");
   const trigger = document.getElementById("callback-time-trigger");
   if (menu) {
+    unmountFloatingMenu(menu);
     menu.hidden = true;
   }
   if (trigger) {
@@ -956,6 +1050,7 @@ function onTimeOptionClick(event) {
 
 function onTimeTriggerClick(event) {
   event.preventDefault();
+  event.stopPropagation();
   const menu = document.getElementById("callback-time-menu");
   const trigger = document.getElementById("callback-time-trigger");
   if (!menu || !trigger) {
@@ -963,8 +1058,13 @@ function onTimeTriggerClick(event) {
   }
   const willOpen = menu.hidden;
   closeAllCountryMenus();
-  menu.hidden = !willOpen;
-  trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+  closeTimeMenu();
+  if (willOpen) {
+    trigger.setAttribute("aria-expanded", "true");
+    mountFloatingMenu(menu, trigger, {
+      minWidth: trigger.getBoundingClientRect().width,
+    });
+  }
 }
 
 function resetCallbackForm() {
@@ -1056,10 +1156,16 @@ async function onCallbackSubmit(event) {
 }
 
 function onDocumentClick(event) {
-  if (!event.target.closest(".phone-country")) {
+  if (
+    !event.target.closest(".phone-country") &&
+    !event.target.closest(".phone-country__menu")
+  ) {
     closeAllCountryMenus();
   }
-  if (!event.target.closest(".modal-select")) {
+  if (
+    !event.target.closest(".modal-select") &&
+    !event.target.closest(".modal-select__menu")
+  ) {
     closeTimeMenu();
   }
 }
@@ -1148,6 +1254,20 @@ if (form) {
 
 document.addEventListener("click", onDocumentClick);
 document.addEventListener("keydown", onDocumentKeydown);
+window.addEventListener("resize", () => {
+  closeAllCountryMenus();
+  closeTimeMenu();
+});
+if (callbackModal) {
+  callbackModal.addEventListener(
+    "scroll",
+    () => {
+      closeAllCountryMenus();
+      closeTimeMenu();
+    },
+    { passive: true }
+  );
+}
 
 const successClose = document.getElementById("callback-success-close");
 if (successClose) {
