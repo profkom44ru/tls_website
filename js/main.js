@@ -1273,3 +1273,30 @@ const successClose = document.getElementById("callback-success-close");
 if (successClose) {
   successClose.addEventListener("click", closeCallbackModal);
 }
+
+const SCROLL_TOP_THRESHOLD = 480;
+const scrollTopBtn = document.getElementById("scroll-top");
+
+function updateScrollTopButton() {
+  if (!scrollTopBtn) {
+    return;
+  }
+  const shouldShow = window.scrollY > SCROLL_TOP_THRESHOLD;
+  scrollTopBtn.classList.toggle("is-visible", shouldShow);
+  scrollTopBtn.setAttribute("aria-hidden", shouldShow ? "false" : "true");
+  scrollTopBtn.tabIndex = shouldShow ? 0 : -1;
+}
+
+function onScrollTopClick() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({
+    top: 0,
+    behavior: reduceMotion ? "auto" : "smooth",
+  });
+}
+
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener("click", onScrollTopClick);
+  window.addEventListener("scroll", updateScrollTopButton, { passive: true });
+  updateScrollTopButton();
+}
