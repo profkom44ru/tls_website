@@ -28,7 +28,51 @@
       type="font/woff"
       crossorigin
     />
-    <link rel="stylesheet" href="css/styles.css?v=20260724-nf" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="css/styles.css?v=20260724-modal" />
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        (k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a);
+      })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=111011333", "ym");
+
+      ym(111011333, "init", {
+        ssr: true,
+        webvisor: true,
+        clickmap: true,
+        ecommerce: "dataLayer",
+        referrer: document.referrer,
+        url: location.href,
+        accurateTrackBounce: true,
+        trackLinks: true,
+      });
+    </script>
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/111011333"
+          style="position: absolute; left: -9999px"
+          alt=""
+        /></div
+    ></noscript>
+    <!-- /Yandex.Metrika counter -->
   </head>
   <body>
     <header class="hero" id="top">
@@ -534,39 +578,65 @@
             <p class="section-lead" style="margin-bottom: 0; margin-inline: auto">
               Выстраиваем алгоритм работы и фиксируем его в КП
             </p>
-            <div
-              class="process-tabs"
-              id="process-tabs"
-              role="tablist"
-              aria-label="Тип услуги"
-            >
-              <button
-                type="button"
-                class="process-tabs__btn is-active"
-                role="tab"
-                aria-selected="true"
-                data-process-tab="dev"
+            <div class="process-tabs-wrap">
+              <div
+                class="process-tabs"
+                id="process-tabs"
+                role="tablist"
+                aria-label="Тип услуги"
               >
-                Разработка
-              </button>
-              <button
-                type="button"
-                class="process-tabs__btn"
-                role="tab"
-                aria-selected="false"
-                data-process-tab="design"
+                <button
+                  type="button"
+                  class="process-tabs__btn is-active"
+                  role="tab"
+                  aria-selected="true"
+                  data-process-tab="dev"
+                >
+                  Разработка
+                </button>
+                <button
+                  type="button"
+                  class="process-tabs__btn"
+                  role="tab"
+                  aria-selected="false"
+                  data-process-tab="design"
+                >
+                  Дизайн
+                </button>
+                <button
+                  type="button"
+                  class="process-tabs__btn"
+                  role="tab"
+                  aria-selected="false"
+                  data-process-tab="promo"
+                >
+                  Продвижение
+                </button>
+              </div>
+              <div
+                class="process-tabs__hint"
+                id="process-tabs-hint"
+                aria-hidden="true"
               >
-                Дизайн
-              </button>
-              <button
-                type="button"
-                class="process-tabs__btn"
-                role="tab"
-                aria-selected="false"
-                data-process-tab="promo"
-              >
-                Продвижение
-              </button>
+                <svg
+                  class="process-tabs__hint-hand"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M30.5 10.5c0-1.38-1.12-2.5-2.5-2.5s-2.5 1.12-2.5 2.5v11.2l-3.05-5.28a2.75 2.75 0 0 0-4.85 2.55l1.9 7.53-2.62-1.75a2.4 2.4 0 0 0-3.35.72 2.4 2.4 0 0 0 .55 3.25l7.9 5.95c.9.68 2 1.05 3.13 1.05H32.5a5 5 0 0 0 5-5V20.5c0-1.38-1.12-2.5-2.5-2.5s-2.5 1.12-2.5 2.5V10.5Z"
+                    fill="#1C1D31"
+                    fill-opacity="0.72"
+                  />
+                  <path
+                    d="M8 22h6M6 27h6"
+                    stroke="#2F2CF0"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
 
@@ -741,7 +811,7 @@
 
         <div class="footer__bottom">
           <div class="footer__legal">
-            <p>© 2026 Team Lab Software. Все права защищены.</p>
+            <p>© 2026 Team Lab Software LLC. Все права защищены.</p>
             <p class="footer__address">Кострома, ул. Петра Щербины, 6</p>
           </div>
           <div class="footer__legal-links">
@@ -873,6 +943,6 @@
       </div>
     </div>
 
-    <script src="js/main.js?v=20260724-path2"></script>
+    <script src="js/main.js?v=20260724-bridge"></script>
   </body>
 </html>

@@ -276,13 +276,16 @@ function getFileExtension(name) {
 
 function getProcessIconPoints(col) {
   const gridRect = processGrid.getBoundingClientRect();
-  return [...col.querySelectorAll(".process-step__icon")].map((icon) => {
-    const rect = icon.getBoundingClientRect();
+  return [...col.querySelectorAll(".process-step")].map((step) => {
+    const icon = step.querySelector(".process-step__icon");
+    const iconRect = icon.getBoundingClientRect();
+    const stepRect = step.getBoundingClientRect();
     return {
-      x: rect.left + rect.width / 2 - gridRect.left,
-      y: rect.top + rect.height / 2 - gridRect.top,
-      top: rect.top - gridRect.top,
-      bottom: rect.bottom - gridRect.top,
+      x: iconRect.left + iconRect.width / 2 - gridRect.left,
+      y: iconRect.top + iconRect.height / 2 - gridRect.top,
+      top: iconRect.top - gridRect.top,
+      bottom: iconRect.bottom - gridRect.top,
+      stepBottom: stepRect.bottom - gridRect.top,
     };
   });
 }
@@ -293,6 +296,35 @@ function appendProcessSegments(pathParts, points) {
     const to = points[i + 1];
     pathParts.push(`M ${from.x} ${from.bottom} L ${to.x} ${to.top}`);
   }
+}
+
+function appendProcessBridge(pathParts, lastLeft, firstRight, underY) {
+  const startX = lastLeft.x;
+  const startY = lastLeft.bottom;
+  const endX = firstRight.x;
+  const endY = firstRight.y;
+  const gutterX = endX - 40;
+  const radius = 8;
+  const r = Math.min(
+    radius,
+    Math.max(2, (underY - startY) / 2),
+    Math.max(2, (gutterX - startX) / 2),
+    Math.max(2, (underY - endY) / 2),
+    Math.max(2, (endX - gutterX) / 2)
+  );
+
+  pathParts.push(
+    [
+      `M ${startX} ${startY}`,
+      `L ${startX} ${underY - r}`,
+      `A ${r} ${r} 0 0 0 ${startX + r} ${underY}`,
+      `L ${gutterX - r} ${underY}`,
+      `A ${r} ${r} 0 0 0 ${gutterX} ${underY - r}`,
+      `L ${gutterX} ${endY + r}`,
+      `A ${r} ${r} 0 0 1 ${gutterX + r} ${endY}`,
+      `L ${endX} ${endY}`,
+    ].join(" ")
+  );
 }
 
 function updateProcessPath() {
@@ -328,8 +360,7 @@ function updateProcessPath() {
   }
 
   const stacked =
-    !right.length ||
-    right[0].y >= left[left.length - 1].bottom - 2;
+    !right.length || right[0].y >= left[left.length - 1].bottom - 2;
 
   const pathParts = [];
 
@@ -339,12 +370,9 @@ function updateProcessPath() {
     appendProcessSegments(pathParts, left);
     const lastLeft = left[left.length - 1];
     const firstRight = right[0];
-    const lastRight = right[right.length - 1];
-    const underY = Math.max(lastLeft.bottom, lastRight.bottom) + 24;
+    const underY = lastLeft.stepBottom + 28;
     height = Math.max(height, underY + 2);
-    pathParts.push(
-      `M ${lastLeft.x} ${lastLeft.bottom} L ${lastLeft.x} ${underY} L ${firstRight.x} ${underY} L ${firstRight.x} ${firstRight.top}`
-    );
+    appendProcessBridge(pathParts, lastLeft, firstRight, underY);
     appendProcessSegments(pathParts, right);
   }
 
@@ -365,7 +393,7 @@ function renderProcessSteps(tabKey) {
     return;
   }
   const steps = PROCESS_DATA[tabKey] || PROCESS_DATA.dev;
-  const mid = Math.ceil(steps.length / 2);
+  const mid = Math.floor(steps.length / 2);
   const columns = [steps.slice(0, mid), steps.slice(mid)];
   processGrid.innerHTML = columns
     .map((col) => {
@@ -387,6 +415,94 @@ function renderProcessSteps(tabKey) {
     })
     .join("");
   scheduleProcessPathUpdate();
+}
+
+function initProcessTabsScrollHint() {
+  if (!processTabs) {
+    return;
+  }
+
+  const wrap = processTabs.closest(".process-tabs-wrap");
+  if (!wrap) {
+    return;
+  }
+
+  let startScrollLeft = 0;
+  let armed = false;
+
+  function isMobileTabs() {
+    return window.matchMedia("(max-width: 900px)").matches;
+  }
+
+  function updateScrollable() {
+    if (!isMobileTabs()) {
+      wrap.classList.remove("is-scrollable");
+      return;
+    }
+    const maxScroll = processTabs.scrollWidth - processTabs.clientWidth;
+    const canScroll = maxScroll > 4;
+    const atEnd = processTabs.scrollLeft >= maxScroll - 4;
+    wrap.classList.toggle("is-scrollable", canScroll && !atEnd);
+  }
+
+  function dismissHint() {
+    wrap.classList.add("is-hint-done");
+    updateScrollable();
+  }
+
+  function arm() {
+    if (armed) {
+      return;
+    }
+    armed = true;
+    startScrollLeft = processTabs.scrollLeft;
+    updateScrollable();
+  }
+
+  updateScrollable();
+
+  processTabs.addEventListener(
+    "scroll",
+    () => {
+      updateScrollable();
+      if (!armed) {
+        startScrollLeft = processTabs.scrollLeft;
+        return;
+      }
+      if (Math.abs(processTabs.scrollLeft - startScrollLeft) > 24) {
+        dismissHint();
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", () => {
+    startScrollLeft = processTabs.scrollLeft;
+    updateScrollable();
+  });
+
+  window.setTimeout(arm, 400);
+
+  if (typeof IntersectionObserver !== "undefined") {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            arm();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(wrap);
+  }
+
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(() => {
+      updateScrollable();
+    });
+    observer.observe(processTabs);
+  }
 }
 
 function onProcessTabClick(event) {
@@ -975,6 +1091,7 @@ if (nav) {
 if (processTabs) {
   processTabs.addEventListener("click", onProcessTabClick);
   renderProcessSteps("dev");
+  initProcessTabsScrollHint();
 }
 
 if (processGrid) {

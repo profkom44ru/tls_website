@@ -1059,6 +1059,21 @@ textarea {
   border: 1px solid rgba(47, 44, 240, 0.03);
 }
 
+.process-tabs-wrap {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  margin-top: 40px;
+}
+
+.process-tabs-wrap .process-tabs {
+  margin-top: 0;
+}
+
+.process-tabs__hint {
+  display: none;
+}
+
 .process-tabs__btn {
   appearance: none;
   border: 0;
@@ -1101,6 +1116,7 @@ textarea {
   position: relative;
   max-width: 1480px;
   margin-inline: auto;
+  padding-bottom: 48px;
 }
 
 .process__col {
@@ -1291,8 +1307,10 @@ textarea {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  z-index: 30;
+  z-index: 40;
   min-width: 220px;
+  max-height: min(280px, 50vh);
+  overflow: auto;
   padding: 6px;
   border-radius: 10px;
   background: #fff;
@@ -2122,9 +2140,11 @@ body.is-modal-open {
   inset: 0;
   z-index: 1000;
   display: grid;
-  place-items: center;
+  justify-items: center;
+  align-items: safe center;
   padding: 20px;
   background: rgba(28, 29, 49, 0.45);
+  overflow-y: auto;
 }
 
 .modal[hidden] {
@@ -2137,8 +2157,8 @@ body.is-modal-open {
   border-radius: 20px;
   padding: 32px;
   box-shadow: 0 16px 16px rgba(28, 29, 49, 0.08);
-  max-height: calc(100vh - 40px);
-  overflow: auto;
+  overflow: visible;
+  margin-block: auto;
 }
 
 .modal__form {
@@ -2287,14 +2307,15 @@ body.is-modal-open {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(100% + 6px);
-  z-index: 20;
+  top: auto;
+  bottom: calc(100% + 6px);
+  z-index: 40;
   background: #fff;
   border: 1px solid #e1e2ec;
   border-radius: 10px;
   padding: 6px;
   box-shadow: 0 12px 24px rgba(28, 29, 49, 0.12);
-  max-height: 240px;
+  max-height: min(260px, 45vh);
   overflow: auto;
 }
 
@@ -2382,27 +2403,104 @@ body.is-modal-open {
 }
 
 @media (max-width: 900px) {
+  .process-tabs-wrap {
+    display: block;
+    width: 100%;
+    margin-top: 32px;
+  }
+
   .process-tabs {
     display: flex;
     width: 100%;
     max-width: 100%;
-    gap: 4px;
+    gap: 6px;
     padding: 4px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+  }
+
+  .process-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .process-tabs__btn {
-    flex: 1 1 0;
-    min-width: 0;
-    padding: 8px 6px;
-    font-size: 13px;
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding: 10px 18px;
+    font-size: 14px;
     line-height: 18px;
     white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  .process-tabs-wrap.is-scrollable::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 36px;
+    pointer-events: none;
+    border-radius: 0 8px 8px 0;
+    background: linear-gradient(
+      90deg,
+      rgba(238, 239, 244, 0),
+      rgba(238, 239, 244, 0.95)
+    );
+  }
+
+  .process-tabs__hint {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    width: 48px;
+    height: 48px;
+    margin-top: -24px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 4px 14px rgba(28, 29, 49, 0.16);
+  }
+
+  .process-tabs-wrap.is-scrollable:not(.is-hint-done) .process-tabs__hint {
+    opacity: 1;
+    animation: process-tabs-hint-nudge 1.4s ease-in-out infinite;
+  }
+
+  .process-tabs-wrap.is-hint-done .process-tabs__hint {
+    opacity: 0;
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .process-tabs__hint-hand {
+    width: 34px;
+    height: 34px;
   }
 
   .process__head {
     margin-bottom: 32px;
   }
+}
 
+@keyframes process-tabs-hint-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-14px);
+  }
+  60% {
+    transform: translateX(-10px);
+  }
 }
