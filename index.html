@@ -11,15 +11,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <header class="hero" id="top">
-      <img class="hero__bg" src="assets/hero-bg.png" alt="" />
-      <img class="hero__glow" src="assets/hero-glow.svg" alt="" />
+      <img class="hero__bg" src="assets/hero-bg.png?v=3" alt="" width="2127" height="1092" decoding="async" />
 
       <div class="header">
         <a class="logo" href="#top" aria-label="ТимЛаб">
@@ -33,7 +32,7 @@
           <a href="#about">О нас</a>
         </nav>
 
-        <a class="btn btn--ghost" href="#contact">Заказать звонок</a>
+        <button class="btn btn--ghost" type="button" data-open-callback>Заказать звонок</button>
         <button class="burger" id="burger" type="button" aria-label="Меню">
           <span></span><span></span><span></span>
         </button>
@@ -75,7 +74,6 @@
     <main>
       <section class="services" id="services">
         <div class="container">
-          <p class="section-kicker">Наши услуги и компетенции</p>
           <h2 class="section-title">
             Нужен сайт? Есть идея для сервиса? Мы — ваша команда
           </h2>
@@ -512,99 +510,43 @@
             <p class="section-lead" style="margin-bottom: 0; margin-inline: auto">
               Оставьте ваши контакты и опишите свою идею/задачу в свободной форме
             </p>
-          </div>
-
-          <div class="process__grid">
-            <div class="process__col">
-              <article class="process-step">
-                <div class="process-step__icon">
-                  <img src="assets/proc-bulb.svg" alt="" width="20" height="20" />
-                </div>
-                <div>
-                  <h3>Отправляете заявку</h3>
-                  <p>
-                    Описываете задачу в свободной форме — идею, цель, наработки.
-                    Можно прислать бриф, ТЗ или просто написать пару строк.
-                  </p>
-                </div>
-              </article>
-              <article class="process-step">
-                <div class="process-step__icon">
-                  <img src="assets/proc-search.svg" alt="" width="20" height="20" />
-                </div>
-                <div>
-                  <h3>Получаем, анализируем, оцениваем</h3>
-                  <p>
-                    Разбираемся в задаче, оцениваем сложность и сроки исполнения,
-                    формулируем гипотезы и возможные подходы к решению.
-                  </p>
-                </div>
-              </article>
-              <article class="process-step">
-                <div class="process-step__icon">
-                  <img src="assets/proc-pencil.svg" alt="" width="20" height="20" />
-                </div>
-                <div>
-                  <h3>Согласуем план и дорабатываем ТЗ</h3>
-                  <p>
-                    Вместе рассматриваем подготовленный план работ. Составляем
-                    или дорабатываем техническое задание — фиксируем все детали.
-                  </p>
-                </div>
-              </article>
-            </div>
-
-            <div class="process__col">
-              <article class="process-step">
-                <div class="process-step__icon">
-                  <img src="assets/proc-code.svg" alt="" width="20" height="20" />
-                </div>
-                <div>
-                  <h3>Презентуем MVP-концепцию</h3>
-                  <p>
-                    Показываем конкретный флоу и соответствие задумке до старта
-                    разработки. Всё прозрачно — без тумана и неожиданностей.
-                  </p>
-                </div>
-              </article>
-              <article class="process-step">
-                <div class="process-step__icon">
-                  <img src="assets/proc-redo.svg" alt="" width="20" height="20" />
-                </div>
-                <div>
-                  <h3>Циклы согласований и правок</h3>
-                  <p>
-                    Это нормально и заложено в процесс. Проводим демонстрации,
-                    собираем обратную связь, дорабатываем итеративно.
-                  </p>
-                </div>
-              </article>
-              <article class="process-step">
-                <div class="process-step__icon">
-                  <img src="assets/proc-team.svg" alt="" width="20" height="20" />
-                </div>
-                <div>
-                  <h3>Презентация и командное тестирование</h3>
-                  <p>
-                    Финальная демонстрация и совместное тестирование всех
-                    сценариев. Фиксируем и закрываем последние замечания.
-                  </p>
-                </div>
-              </article>
-              <article class="process-step">
-                <div class="process-step__icon">
-                  <img src="assets/proc-rocket.svg" alt="" width="20" height="20" />
-                </div>
-                <div>
-                  <h3>Запускаем продукт — в прод!</h3>
-                  <p>
-                    Выкатываем на боевой сервер, проводим обучение команды,
-                    сдаем доступы. Дальше — поддержка и совместное развитие.
-                  </p>
-                </div>
-              </article>
+            <div
+              class="process-tabs"
+              id="process-tabs"
+              role="tablist"
+              aria-label="Тип услуги"
+            >
+              <button
+                type="button"
+                class="process-tabs__btn is-active"
+                role="tab"
+                aria-selected="true"
+                data-process-tab="dev"
+              >
+                Разработка
+              </button>
+              <button
+                type="button"
+                class="process-tabs__btn"
+                role="tab"
+                aria-selected="false"
+                data-process-tab="design"
+              >
+                Дизайн
+              </button>
+              <button
+                type="button"
+                class="process-tabs__btn"
+                role="tab"
+                aria-selected="false"
+                data-process-tab="promo"
+              >
+                Продвижение
+              </button>
             </div>
           </div>
+
+          <div class="process__grid" id="process-grid"></div>
         </div>
       </section>
 
@@ -650,14 +592,32 @@
               </div>
               <div class="form__row" style="margin-bottom: 20px">
                 <label class="visually-hidden" for="phone">Телефон</label>
-                <div class="field field--phone">
-                  <img src="assets/flag-ru.svg" alt="" width="32" height="24" />
+                <div class="field field--phone" id="contact-phone" data-phone-root>
+                  <div class="phone-country">
+                    <button
+                      type="button"
+                      class="phone-country__toggle"
+                      data-country-toggle
+                      aria-label="Выбрать страну"
+                      aria-haspopup="listbox"
+                    >
+                      <img data-phone-flag src="assets/flag-ru.svg" alt="Россия" width="32" height="24" />
+                      <img class="phone-country__chevron" src="assets/icon-chevron.svg" alt="" width="12" height="12" />
+                    </button>
+                    <div
+                      class="phone-country__menu"
+                      id="contact-country-menu"
+                      role="listbox"
+                      hidden
+                    ></div>
+                  </div>
                   <input
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="+7 …"
+                    placeholder="+7 (___) ___-__-__"
                     autocomplete="tel"
+                    inputmode="tel"
                     required
                   />
                 </div>
@@ -682,25 +642,7 @@
               ></textarea>
             </div>
 
-            <div class="form__attach">
-              <label class="btn btn--attach">
-                <img src="assets/icon-paperclip.svg" alt="" width="24" height="24" />
-                ПРИКРЕПИТЬ ФАЙЛ
-                <input
-                  class="visually-hidden"
-                  type="file"
-                  name="file"
-                  accept=".pdf,.docx,.png,application/pdf,image/png"
-                />
-              </label>
-              <div>
-                <p class="form__attach-hint">
-                  Сюда можно прикрепить бриф, ТЗ или любой другой документ<br />
-                  Форматы: PDF, DOCX, PNG, весом до 20 МБ
-                </p>
-                <p class="form__file-name" id="file-name" aria-live="polite"></p>
-              </div>
-            </div>
+            <div class="form__attach" id="attach-root" data-state="idle"></div>
 
             <button class="btn btn--purple" type="submit">Отправить</button>
             <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
@@ -727,9 +669,6 @@
             <p>
               Веб-сервисы и сайты для бизнеса.<br />
               От идеи до запуска и поддержки.
-            </p>
-            <p class="footer__address">
-              Кострома, ул. Петра Щербины, 6, каб 10
             </p>
           </div>
 
@@ -767,7 +706,7 @@
           </div>
 
           <div class="footer__actions">
-            <a class="btn btn--ghost" href="#contact">Заказать звонок</a>
+            <button class="btn btn--ghost" type="button" data-open-callback>Заказать звонок</button>
             <a class="btn btn--lime-outline" href="presentation.html">
               <img src="assets/icon-file.svg" alt="" width="24" height="24" />
               Скачать презентацию
@@ -776,12 +715,135 @@
         </div>
 
         <div class="footer__bottom">
-          <p>© 2026 Team Lab Software. Все права защищены.</p>
-          <a href="privacy.html">Политика конфиденциальности</a>
-          <a href="personal-data.html">Обработка персональных данных</a>
+          <div class="footer__legal">
+            <p>© 2026 Team Lab Software. Все права защищены.</p>
+            <p class="footer__address">Кострома, ул. Петра Щербины, 6</p>
+          </div>
+          <div class="footer__legal-links">
+            <a href="privacy.html">Политика конфиденциальности</a>
+            <a href="personal-data.html">Обработка персональных данных</a>
+          </div>
         </div>
       </div>
     </footer>
+
+    <div
+      class="modal"
+      id="callback-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="callback-title"
+      hidden
+    >
+      <div class="modal__card">
+        <form class="modal__form" id="callback-form" action="send.php" method="post">
+          <input type="hidden" name="form_type" value="callback" />
+          <input type="hidden" name="privacy" value="1" />
+          <div class="modal__header">
+            <div>
+              <h2 class="modal__title" id="callback-title">Заказать обратный звонок</h2>
+              <p class="modal__subtitle">Оставьте свои данные, и мы перезвоним вам</p>
+            </div>
+            <button type="button" class="modal__close" data-close-callback aria-label="Закрыть">
+              <img src="assets/icon-modal-close.svg" alt="" width="24" height="24" />
+            </button>
+          </div>
+
+          <div class="modal-field" id="callback-field-name">
+            <label class="modal-field__label" for="callback-name">Ваше имя</label>
+            <input
+              class="modal-field__input"
+              id="callback-name"
+              name="name"
+              type="text"
+              placeholder="Введите имя"
+              autocomplete="name"
+            />
+            <p class="modal-field__error" aria-live="polite"></p>
+          </div>
+
+          <div class="modal-field" id="callback-field-phone">
+            <label class="modal-field__label" for="callback-phone-input">Номер телефона</label>
+            <div class="modal-field__phone" id="callback-phone" data-phone-root>
+              <div class="phone-country">
+                <button
+                  type="button"
+                  class="phone-country__toggle"
+                  data-country-toggle
+                  aria-label="Выбрать страну"
+                  aria-haspopup="listbox"
+                >
+                  <img data-phone-flag src="assets/flag-ru.svg" alt="Россия" width="24" height="18" />
+                  <img class="phone-country__chevron" src="assets/icon-chevron.svg" alt="" width="12" height="12" />
+                </button>
+                <div
+                  class="phone-country__menu phone-country__menu--up"
+                  id="callback-country-menu"
+                  role="listbox"
+                  hidden
+                ></div>
+              </div>
+              <input
+                class="modal-field__input modal-field__input--bare"
+                id="callback-phone-input"
+                name="phone"
+                type="tel"
+                placeholder="+7 (___) ___-__-__"
+                autocomplete="tel"
+                inputmode="tel"
+              />
+            </div>
+            <p class="modal-field__error" aria-live="polite"></p>
+          </div>
+
+          <div class="modal-field" id="callback-field-time">
+            <span class="modal-field__label" id="callback-time-label">Удобное время для звонка</span>
+            <div class="modal-select">
+              <button
+                type="button"
+                class="modal-field__input modal-select__trigger"
+                id="callback-time-trigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="callback-time-label"
+              >
+                <span id="callback-time-value">Выберите время</span>
+                <img src="assets/icon-chevron.svg" alt="" width="14" height="14" />
+              </button>
+              <div class="modal-select__menu" id="callback-time-menu" role="listbox" hidden></div>
+              <input type="hidden" name="call_time" id="callback-time" value="" />
+            </div>
+            <p class="modal-field__error" aria-live="polite"></p>
+          </div>
+
+          <button class="btn btn--modal-lime" type="submit">Отправить заявку</button>
+          <p class="modal__legal">
+            Нажимая кнопку, вы соглашаетесь с
+            <a href="privacy.html">политикой конфиденциальности</a>
+          </p>
+        </form>
+
+        <div class="modal__success" id="callback-success" hidden>
+          <div class="modal__success-top">
+            <button type="button" class="modal__close" data-close-callback aria-label="Закрыть">
+              <img src="assets/icon-modal-close.svg" alt="" width="24" height="24" />
+            </button>
+          </div>
+          <div class="modal__success-body">
+            <div class="modal__success-badge">
+              <img src="assets/icon-check.svg" alt="" width="28" height="28" />
+            </div>
+            <h2 class="modal__success-title">Заявка отправлена!</h2>
+            <p class="modal__success-text">
+              Мы перезвоним вам в выбранное время. Спасибо за обращение!
+            </p>
+          </div>
+          <button class="btn btn--modal-outline" type="button" id="callback-success-close">
+            Закрыть
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="js/main.js"></script>
   </body>

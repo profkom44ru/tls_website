@@ -22,12 +22,72 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+$formType = trim((string) ($_POST['form_type'] ?? 'contact'));
 $name = trim((string) ($_POST['name'] ?? ''));
-$company = trim((string) ($_POST['company'] ?? ''));
 $phone = trim((string) ($_POST['phone'] ?? ''));
+$privacy = isset($_POST['privacy']);
+
+if ($formType === 'callback') {
+    $callTime = trim((string) ($_POST['call_time'] ?? ''));
+
+    if ($name === '' || $phone === '' || $callTime === '') {
+        http_response_code(422);
+        echo json_encode(['ok' => false, 'error' => 'Заполните обязательные поля'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    if (!$privacy) {
+        http_response_code(422);
+        echo json_encode(['ok' => false, 'error' => 'Нужно согласие на обработку данных'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    if (mb_strlen($name) > 200 || mb_strlen($phone) > 40 || mb_strlen($callTime) > 80) {
+        http_response_code(422);
+        echo json_encode(['ok' => false, 'error' => 'Слишком длинные данные'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    $safeName = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $safePhone = htmlspecialchars($phone, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $safeTime = htmlspecialchars($callTime, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+
+    $subject = '=?UTF-8?B?' . base64_encode('Обратный звонок: ' . $name) . '?=';
+    $bodyText = "Тип: обратный звонок\nИмя: {$name}\nТелефон: {$phone}\nВремя: {$callTime}\n";
+
+    $boundary = 'bnd_' . bin2hex(random_bytes(12));
+    $headers = [];
+    $headers[] = 'From: Team Lab <' . MAIL_FROM . '>';
+    $headers[] = 'MIME-Version: 1.0';
+    $headers[] = 'Content-Type: multipart/mixed; boundary="' . $boundary . '"';
+
+    $body = "--{$boundary}\r\n";
+    $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+    $body .= "<html><body>";
+    $body .= "<h2>Заявка на обратный звонок</h2>";
+    $body .= "<p><strong>Имя:</strong> {$safeName}</p>";
+    $body .= "<p><strong>Телефон:</strong> {$safePhone}</p>";
+    $body .= "<p><strong>Удобное время:</strong> {$safeTime}</p>";
+    $body .= "<hr><pre>" . htmlspecialchars($bodyText, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</pre>";
+    $body .= "</body></html>\r\n";
+    $body .= "--{$boundary}--\r\n";
+
+    $sent = @mail(MAIL_TO, $subject, $body, implode("\r\n", $headers));
+
+    if (!$sent) {
+        http_response_code(500);
+        echo json_encode(['ok' => false, 'error' => 'Не удалось отправить. Напишите на info@sniper-search.ru'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    echo json_encode(['ok' => true, 'message' => 'Заявка отправлена.'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+$company = trim((string) ($_POST['company'] ?? ''));
 $email = trim((string) ($_POST['email'] ?? ''));
 $message = trim((string) ($_POST['message'] ?? ''));
-$privacy = isset($_POST['privacy']);
 
 if ($name === '' || $phone === '' || $email === '' || $message === '') {
     http_response_code(422);

@@ -1,0 +1,11 @@
+<svg width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip-kz)">
+    <rect width="32" height="24" fill="#00AFCA"/>
+    <circle cx="16" cy="12" r="5" fill="#FEC50C"/>
+    <path d="M16 5.5L16.9 8.2H19.8L17.45 9.9L18.35 12.6L16 10.9L13.65 12.6L14.55 9.9L12.2 8.2H15.1L16 5.5Z" fill="#00AFCA"/>
+    <path d="M3 4V20" stroke="#FEC50C" stroke-width="2"/>
+  </g>
+  <defs>
+    <clipPath id="clip-kz"><rect width="32" height="24" rx="3" fill="white"/></clipPath>
+  </defs>
+</svg>
