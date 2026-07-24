@@ -274,6 +274,92 @@ function getFileExtension(name) {
   return parts.length > 1 ? parts.pop().toLowerCase() : "";
 }
 
+function getProcessIconPoints(col) {
+  const gridRect = processGrid.getBoundingClientRect();
+  return [...col.querySelectorAll(".process-step__icon")].map((icon) => {
+    const rect = icon.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2 - gridRect.left,
+      y: rect.top + rect.height / 2 - gridRect.top,
+      top: rect.top - gridRect.top,
+      bottom: rect.bottom - gridRect.top,
+    };
+  });
+}
+
+function appendProcessSegments(pathParts, points) {
+  for (let i = 0; i < points.length - 1; i += 1) {
+    const from = points[i];
+    const to = points[i + 1];
+    pathParts.push(`M ${from.x} ${from.bottom} L ${to.x} ${to.top}`);
+  }
+}
+
+function updateProcessPath() {
+  if (!processGrid) {
+    return;
+  }
+
+  const cols = [...processGrid.querySelectorAll(".process__col")];
+  let svg = processGrid.querySelector(".process__path");
+  if (!svg) {
+    svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.classList.add("process__path");
+    svg.setAttribute("aria-hidden", "true");
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    line.classList.add("process__path-line");
+    svg.appendChild(line);
+    processGrid.insertBefore(svg, processGrid.firstChild);
+  }
+
+  const line = svg.querySelector(".process__path-line");
+  const width = processGrid.clientWidth;
+  let height = processGrid.clientHeight;
+
+  const left = cols[0] ? getProcessIconPoints(cols[0]) : [];
+  const right = cols[1] ? getProcessIconPoints(cols[1]) : [];
+
+  if (!left.length) {
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("width", String(width));
+    svg.setAttribute("height", String(height));
+    line.setAttribute("d", "");
+    return;
+  }
+
+  const stacked =
+    !right.length ||
+    right[0].y >= left[left.length - 1].bottom - 2;
+
+  const pathParts = [];
+
+  if (stacked) {
+    appendProcessSegments(pathParts, left.concat(right));
+  } else {
+    appendProcessSegments(pathParts, left);
+    const lastLeft = left[left.length - 1];
+    const firstRight = right[0];
+    const lastRight = right[right.length - 1];
+    const underY = Math.max(lastLeft.bottom, lastRight.bottom) + 24;
+    height = Math.max(height, underY + 2);
+    pathParts.push(
+      `M ${lastLeft.x} ${lastLeft.bottom} L ${lastLeft.x} ${underY} L ${firstRight.x} ${underY} L ${firstRight.x} ${firstRight.top}`
+    );
+    appendProcessSegments(pathParts, right);
+  }
+
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("width", String(width));
+  svg.setAttribute("height", String(height));
+  line.setAttribute("d", pathParts.join(" "));
+}
+
+function scheduleProcessPathUpdate() {
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(updateProcessPath);
+  });
+}
+
 function renderProcessSteps(tabKey) {
   if (!processGrid) {
     return;
@@ -288,7 +374,7 @@ function renderProcessSteps(tabKey) {
           (step) =>
             `<article class="process-step">
               <div class="process-step__icon">
-                <img src="${step.icon}" alt="" width="20" height="20" />
+                <img src="${step.icon}" alt="" />
               </div>
               <div>
                 <h3>${step.title}</h3>
@@ -300,6 +386,7 @@ function renderProcessSteps(tabKey) {
       return `<div class="process__col">${items}</div>`;
     })
     .join("");
+  scheduleProcessPathUpdate();
 }
 
 function onProcessTabClick(event) {
@@ -580,6 +667,7 @@ async function onFormSubmit(event) {
   }
 
   const submitBtn = form.querySelector('button[type="submit"]');
+  const submitDefaultLabel = "Отправить";
   const phoneInput = form.querySelector("#phone");
   const country = findCountry(phoneCountryCode);
   if (phoneInput && !isPhoneComplete(phoneInput.value, country)) {
@@ -590,6 +678,8 @@ async function onFormSubmit(event) {
   setFormStatus("Отправляем…", "pending");
   if (submitBtn) {
     submitBtn.disabled = true;
+    submitBtn.classList.remove("is-success");
+    submitBtn.textContent = submitDefaultLabel;
   }
 
   try {
@@ -610,6 +700,10 @@ async function onFormSubmit(event) {
 
     if (!response.ok || !payload.ok) {
       setFormStatus(payload.error || "Ошибка отправки. Попробуйте ещё раз.", "error");
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitDefaultLabel;
+      }
       return;
     }
 
@@ -618,11 +712,17 @@ async function onFormSubmit(event) {
     syncPhoneField("contact-phone", "ru", false);
     setAttachIdle();
     setFormStatus(payload.message || "Заявка отправлена.", "success");
+    if (submitBtn) {
+      submitBtn.classList.add("is-success");
+      submitBtn.textContent = "ОТПРАВЛЕНО!";
+      submitBtn.disabled = true;
+    }
   } catch (error) {
     setFormStatus("Сеть недоступна. Напишите на info@sniper-search.ru", "error");
-  } finally {
     if (submitBtn) {
       submitBtn.disabled = false;
+      submitBtn.textContent = submitDefaultLabel;
+      submitBtn.classList.remove("is-success");
     }
   }
 }
@@ -875,6 +975,14 @@ if (nav) {
 if (processTabs) {
   processTabs.addEventListener("click", onProcessTabClick);
   renderProcessSteps("dev");
+}
+
+if (processGrid) {
+  window.addEventListener("resize", scheduleProcessPathUpdate);
+  if (typeof ResizeObserver !== "undefined") {
+    const processResizeObserver = new ResizeObserver(scheduleProcessPathUpdate);
+    processResizeObserver.observe(processGrid);
+  }
 }
 
 document.querySelectorAll("[data-open-callback]").forEach((el) => {

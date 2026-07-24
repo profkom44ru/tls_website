@@ -11,10 +11,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="preload"
+      href="assets/fonts/NeutralFaceBold.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/NeutralFace.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/styles.css?v=20260724-nf" />
   </head>
   <body>
     <header class="hero" id="top">
@@ -142,41 +156,41 @@
           </div>
 
           <div class="industries">
-            <h2>Сферы деятельности, в которых мы сильны</h2>
+            <h2 class="section-title">Сферы деятельности, в которых мы сильны</h2>
             <div class="industries__grid">
               <article class="industry-card">
                 <div class="industry-card__icon">
-                  <img src="assets/ind-startup.svg" alt="" width="46" height="46" />
+                  <img src="assets/ind-startup.svg" alt="" />
                 </div>
                 <span>Стартапы</span>
               </article>
               <article class="industry-card">
                 <div class="industry-card__icon">
-                  <img src="assets/ind-retail.svg" alt="" width="44" height="44" />
+                  <img src="assets/ind-retail.svg" alt="" />
                 </div>
                 <span>Ритейл</span>
               </article>
               <article class="industry-card">
                 <div class="industry-card__icon">
-                  <img src="assets/ind-factory.svg" alt="" width="44" height="44" />
+                  <img src="assets/ind-factory.svg" alt="" />
                 </div>
                 <span>Производство</span>
               </article>
               <article class="industry-card">
                 <div class="industry-card__icon">
-                  <img src="assets/ind-ecommerce.svg" alt="" width="42" height="43" />
+                  <img src="assets/ind-ecommerce.svg" alt="" />
                 </div>
                 <span>Е-commerce</span>
               </article>
               <article class="industry-card">
                 <div class="industry-card__icon">
-                  <img src="assets/ind-edu.svg" alt="" width="52" height="52" />
+                  <img src="assets/ind-edu.svg" alt="" />
                 </div>
                 <span>Образование</span>
               </article>
               <article class="industry-card">
                 <div class="industry-card__icon">
-                  <img src="assets/ind-realty.svg" alt="" width="48" height="48" />
+                  <img src="assets/ind-realty.svg" alt="" />
                 </div>
                 <span>Недвижимость</span>
               </article>
@@ -191,8 +205,8 @@
             проекты, которыми мы гордимся (без грифа NDA)
           </h2>
           <p class="section-lead section-lead--light">
-            Ниже подробно рассказываем о своих проектах — как начинали, как
-            строили гипотезы, как писали код, продумывали стиль
+            Ниже кратко рассказываем о своих проектах — написанных для себя и на
+            заказ
           </p>
 
           <article class="project">
@@ -462,40 +476,50 @@
           <div class="stack__list">
             <div class="stack-item">
               <div class="stack-item__icon stack-item__icon--python">
-                <img src="assets/stack-python-1.svg" alt="" />
-                <img src="assets/stack-python-2.svg" alt="" />
+                <img class="stack-mark--tint" src="assets/stack-python-1.svg" alt="" />
+                <img class="stack-mark--tint" src="assets/stack-python-2.svg" alt="" />
               </div>
               <span>python</span>
             </div>
             <div class="stack-item">
               <div class="stack-item__icon">
-                <img src="assets/stack-go.svg" alt="Golang" />
+                <img class="stack-mark--tint" src="assets/stack-go.svg" alt="Golang" />
               </div>
               <span>golang</span>
             </div>
             <div class="stack-item">
               <div class="stack-item__icon stack-item__icon--ts">
-                <img src="assets/stack-ts.svg" alt="" aria-hidden="true" />
-                <img src="assets/stack-ts-mark.svg" alt="TypeScript" />
+                <img class="stack-mark--tint" src="assets/stack-ts.svg" alt="" aria-hidden="true" />
+                <img class="stack-mark--light" src="assets/stack-ts-mark.svg" alt="TypeScript" />
               </div>
               <span>typescript</span>
             </div>
             <div class="stack-item">
               <div class="stack-item__icon">
-                <img src="assets/stack-docker.svg" alt="Docker" />
+                <img class="stack-mark--tint" src="assets/stack-docker.svg" alt="Docker" />
               </div>
               <span>docker</span>
             </div>
             <div class="stack-item">
               <div class="stack-item__icon stack-item__icon--k8s">
-                <img src="assets/stack-k8s-1.svg" alt="" />
-                <img src="assets/stack-k8s-2.svg" alt="Kubernetes" />
+                <img class="stack-mark--tint" src="assets/stack-k8s-1.svg" alt="" />
+                <img class="stack-mark--light" src="assets/stack-k8s-2.svg" alt="Kubernetes" />
               </div>
               <span>K8S</span>
             </div>
             <div class="stack-item">
-              <div class="stack-item__icon">
-                <img src="assets/stack-ai.svg" alt="AI / ML" />
+              <div class="stack-item__icon stack-item__icon--ai">
+                <img
+                  class="stack-mark--default"
+                  src="assets/stack-ai.svg"
+                  alt="AI / ML"
+                />
+                <img
+                  class="stack-mark--hover"
+                  src="assets/stack-ai-hover.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
               </div>
               <span>AI / ML</span>
             </div>
@@ -508,7 +532,7 @@
           <div class="process__head">
             <h2 class="section-title">чего ждать после отправки заявки</h2>
             <p class="section-lead" style="margin-bottom: 0; margin-inline: auto">
-              Оставьте ваши контакты и опишите свою идею/задачу в свободной форме
+              Выстраиваем алгоритм работы и фиксируем его в КП
             </p>
             <div
               class="process-tabs"
@@ -651,7 +675,9 @@
               <input type="checkbox" name="privacy" value="1" required checked />
               <span
                 >Я ознакомился и принимаю
-                <a href="personal-data.html">политику обработки персональных данных</a></span
+                <a href="personal-data.html">согласие на обработку персональных данных</a>
+                и
+                <a href="privacy.html">политику конфиденциальности</a></span
               >
             </label>
           </form>
@@ -679,7 +705,6 @@
               <a href="#process">Процесс</a>
               <a href="#cases">Кейсы</a>
               <a href="#about">О нас</a>
-              <a href="#contact">Контакты</a>
             </nav>
           </div>
 
@@ -721,7 +746,8 @@
           </div>
           <div class="footer__legal-links">
             <a href="privacy.html">Политика конфиденциальности</a>
-            <a href="personal-data.html">Обработка персональных данных</a>
+            <a href="user-agreement.html">Пользовательское соглашение</a>
+            <a href="personal-data.html">Согласие на обработку ПДн</a>
           </div>
         </div>
       </div>
@@ -820,6 +846,8 @@
           <p class="modal__legal">
             Нажимая кнопку, вы соглашаетесь с
             <a href="privacy.html">политикой конфиденциальности</a>
+            и
+            <a href="user-agreement.html">пользовательским соглашением</a>
           </p>
         </form>
 
@@ -845,6 +873,6 @@
       </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=20260724-path2"></script>
   </body>
 </html>
