@@ -1,4 +1,7 @@
 # Block access to hidden files
+# HTTPS already handled by hosting/nginx — do not force-redirect here
+# (causes redirect loop behind proxy)
+
 <FilesMatch "^\.">
   Require all denied
 </FilesMatch>
