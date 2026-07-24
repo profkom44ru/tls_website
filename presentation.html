@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Презентация — ТимЛаб</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="presentation-page">
+      <div class="container">
+        <p><a href="index.html">← На главную</a></p>
+        <h1>ТимЛаб — команда разработки</h1>
+        <p class="lead">
+          Веб-сервисы и сайты для бизнеса: от идеи до запуска и поддержки.
+          Кострома / удалённо.
+        </p>
+
+        <div class="presentation-grid">
+          <article class="presentation-card">
+            <h2>Что делаем</h2>
+            <p>
+              Веб-разработка, сайты, облачные решения, интеграции и ИИ-сервисы
+              под задачи бизнеса.
+            </p>
+          </article>
+          <article class="presentation-card">
+            <h2>Как работаем</h2>
+            <p>
+              Брифинг → прототип → разработка → запуск → поддержка. Прозрачные
+              этапы и фиксируем результат.
+            </p>
+          </article>
+          <article class="presentation-card">
+            <h2>Стек</h2>
+            <p>
+              Современный frontend/backend, облако, автоматизация. Подбираем
+              стек под продукт, а не наоборот.
+            </p>
+          </article>
+          <article class="presentation-card">
+            <h2>Контакты</h2>
+            <p>
+              s@sniper-search.ru<br />
+              +7 (995) 600-41-71<br />
+              Telegram: @SniperSearchSupport
+            </p>
+          </article>
+        </div>
+
+        <div class="presentation-actions">
+          <a class="btn btn--lime" href="index.html#contact">Обсудить проект</a>
+          <a
+            class="btn btn--ghost"
+            href="https://t.me/SniperSearchSupport"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Написать в Telegram</a
+          >
+          <button class="btn btn--purple" type="button" id="print-presentation">
+            Сохранить как PDF
+          </button>
+        </div>
+      </div>
+    </main>
+    <script>
+      const printBtn = document.getElementById("print-presentation");
+      if (printBtn) {
+        printBtn.addEventListener("click", () => {
+          window.print();
+        });
+      }
+    </script>
+  </body>
+</html>

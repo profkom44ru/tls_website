@@ -1,0 +1,6 @@
+.DS_Store
+*.zip
+_qa-*.png
+__pycache__/
+.venv/
+*.log

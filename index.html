@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ТимЛаб — команда разработки</title>
+    <meta
+      name="description"
+      content="ТимЛаб — диджитал-компания полного цикла. Разрабатываем сервисы, сайты и ИИ-решения для бизнеса."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <img class="hero__bg" src="assets/hero-bg.png" alt="" />
+      <img class="hero__glow" src="assets/hero-glow.svg" alt="" />
+
+      <div class="header">
+        <a class="logo" href="#top" aria-label="ТимЛаб">
+          <img src="assets/logo.svg" alt="ТимЛаб — команда разработки" />
+        </a>
+
+        <nav class="nav" id="nav" aria-label="Основная навигация">
+          <a href="#services" class="is-active">Услуги</a>
+          <a href="#process">Процесс</a>
+          <a href="#cases">Кейсы</a>
+          <a href="#about">О нас</a>
+        </nav>
+
+        <a class="btn btn--ghost" href="#contact">Заказать звонок</a>
+        <button class="burger" id="burger" type="button" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="hero__content">
+        <h1 class="hero__title">
+          <span class="hero__title-line">Разрабатываем</span><br />
+          <span class="accent">IT решения,</span> которые<br />
+          помогают бизнесу
+        </h1>
+
+        <div class="hero__chips">
+          <div class="chip">
+            <img src="assets/icon-brain.svg" alt="" width="24" height="24" />
+            <span>AI-сервисы</span>
+          </div>
+          <div class="chip">
+            <img src="assets/icon-gear.svg" alt="" width="24" height="24" />
+            <span>Автоматизация в B2B</span>
+          </div>
+          <div class="chip">
+            <img src="assets/icon-cloud.svg" alt="" width="24" height="24" />
+            <span>Облачные решения</span>
+          </div>
+          <div class="chip">
+            <img src="assets/icon-pencil.svg" alt="" width="24" height="24" />
+            <span>Разработка сайтов</span>
+          </div>
+        </div>
+
+        <a class="btn btn--lime" href="#contact">
+          ДАВАЙТЕ ОБСУДИМ ВАШ ПРОЕКТ
+          <img src="assets/icon-arrow.svg" alt="" width="32" height="32" />
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="services" id="services">
+        <div class="container">
+          <p class="section-kicker">Наши услуги и компетенции</p>
+          <h2 class="section-title">
+            Нужен сайт? Есть идея для сервиса? Мы — ваша команда
+          </h2>
+          <p class="section-lead">
+            Разрабатываем веб-решения, которые упрощают работу и ускоряют
+            бизнес-процессы
+          </p>
+
+          <div class="services__grid">
+            <article class="service-card">
+              <h3>веб-Разработка</h3>
+              <div class="tags">
+                <span class="tag">Корпоративные сайты</span>
+                <span class="tag">Landing Page</span>
+                <span class="tag tag--accent">B2B-сервисы и порталы</span>
+                <span class="tag tag--accent">Интернет-магазины</span>
+                <span class="tag">Backend-разработка, API</span>
+                <span class="tag">SRM и CRM системы</span>
+                <span class="tag">Онлайн-школы</span>
+                <span class="tag">Приложения iOS, Android</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <h3>Дизайн и UX</h3>
+              <div class="tags">
+                <span class="tag">Дизайн сайтов с нуля</span>
+                <span class="tag">Прототипирование</span>
+                <span class="tag tag--accent">Редизайн сайтов и интерфейсов</span>
+                <span class="tag">Брендинг и фирменный стиль</span>
+                <span class="tag">Инфографика</span>
+                <span class="tag">Дизайн материалов для рекламы и контента</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <h3>ИИ-решения и автоматизация</h3>
+              <div class="tags">
+                <span class="tag tag--accent">AI-решения для бизнеса</span>
+                <span class="tag">Внедрение Sniper Search</span>
+                <span class="tag">Автоматизация задач и процессов</span>
+                <span class="tag">Интеграции с CRM</span>
+              </div>
+            </article>
+
+            <article class="service-card">
+              <h3>Аудит и аналитика</h3>
+              <div class="tags">
+                <span class="tag">Комплексный аудит сайта</span>
+                <span class="tag tag--accent">Комплексный аудит кода или сервиса</span>
+              </div>
+            </article>
+
+            <article class="service-card service-card--wide">
+              <h3>Интернет-маркетинг</h3>
+              <div class="tags">
+                <span class="tag tag--accent">Комплексное продвижение сайтов</span>
+                <span class="tag">Контекстная реклама (Директ)</span>
+                <span class="tag">Контент-маркетинг</span>
+                <span class="tag">Email-рассылки</span>
+                <span class="tag">Таргетированная реклама</span>
+                <span class="tag">Оптимизация сайтов</span>
+                <span class="tag">Ссылочный маркетинг</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="industries">
+            <h2>Сферы деятельности, в которых мы сильны</h2>
+            <div class="industries__grid">
+              <article class="industry-card">
+                <div class="industry-card__icon">
+                  <img src="assets/ind-startup.svg" alt="" width="46" height="46" />
+                </div>
+                <span>Стартапы</span>
+              </article>
+              <article class="industry-card">
+                <div class="industry-card__icon">
+                  <img src="assets/ind-retail.svg" alt="" width="44" height="44" />
+                </div>
+                <span>Ритейл</span>
+              </article>
+              <article class="industry-card">
+                <div class="industry-card__icon">
+                  <img src="assets/ind-factory.svg" alt="" width="44" height="44" />
+                </div>
+                <span>Производство</span>
+              </article>
+              <article class="industry-card">
+                <div class="industry-card__icon">
+                  <img src="assets/ind-ecommerce.svg" alt="" width="42" height="43" />
+                </div>
+                <span>Е-commerce</span>
+              </article>
+              <article class="industry-card">
+                <div class="industry-card__icon">
+                  <img src="assets/ind-edu.svg" alt="" width="52" height="52" />
+                </div>
+                <span>Образование</span>
+              </article>
+              <article class="industry-card">
+                <div class="industry-card__icon">
+                  <img src="assets/ind-realty.svg" alt="" width="48" height="48" />
+                </div>
+                <span>Недвижимость</span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects" id="cases">
+        <div class="container">
+          <h2 class="section-title section-title--light">
+            проекты, которыми мы гордимся (без грифа NDA)
+          </h2>
+          <p class="section-lead section-lead--light">
+            Ниже подробно рассказываем о своих проектах — как начинали, как
+            строили гипотезы, как писали код, продумывали стиль
+          </p>
+
+          <article class="project">
+            <div class="project__card">
+              <div class="project__head">
+                <h3>Снайпер серч</h3>
+                <span class="badge">Наш продукт!</span>
+              </div>
+              <dl class="project__rows">
+                <div class="project__row">
+                  <dt>Задачи:</dt>
+                  <dd>
+                    Менеджеры по закупкам тратят много времени на поиск
+                    поставщиков, ручную рассылку заявок, сбор КП и сравнение
+                    условий. Обработка 1 заявки занимает 10+ часов
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt>Решение:</dt>
+                  <dd>
+                    Разработали сервис, который автоматизирует поиск и выбор
+                    поставщиков, собирает актуальные предложения и сравнивает
+                    их с помощью ИИ
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt class="result">Результат:</dt>
+                  <dd>
+                    <strong>Одна заявка обрабатывается в среднем 30 минут,</strong>
+                    команда получает 200+ предложений по каждому запросу и может
+                    вести 10+ заявок в день.
+                  </dd>
+                </div>
+              </dl>
+              <div class="project__tags">
+                <span class="tag">Backend-разработка, API</span>
+                <span class="tag">SRM и CRM системы</span>
+              </div>
+            </div>
+            <div class="project__media">
+              <img src="assets/project-sniper.png" alt="Интерфейс Sniper Search" />
+            </div>
+          </article>
+
+          <article class="project project--reverse">
+            <div class="project__card">
+              <div class="project__head">
+                <h3>Brand picker</h3>
+                <span class="badge">Наш продукт!</span>
+              </div>
+              <dl class="project__rows">
+                <div class="project__row">
+                  <dt>Задачи:</dt>
+                  <dd>
+                    Тендерщики и снабженцы должны оперативно определять
+                    конкретный бренд и модель объекта закупки, имея только ТЗ
+                    или список характеристик.
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt>Решение:</dt>
+                  <dd>
+                    Мини-сервис анализирует список характеристик и показывает
+                    модели, полностью или частично подходящие под заданные
+                    параметры, ищет аналоги
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt class="result">Результат:</dt>
+                  <dd>
+                    <strong
+                      >Пользователь за 1–2 минуты находит подходящую модель
+                      объекта закупки,</strong
+                    >
+                    понимает степень соответствия и может сразу искать нужный
+                    лот
+                  </dd>
+                </div>
+              </dl>
+              <div class="project__tags">
+                <span class="tag">Backend-разработка, API</span>
+                <span class="tag">SRM и CRM системы</span>
+              </div>
+            </div>
+            <div class="project__media">
+              <img src="assets/project-brand.png" alt="Интерфейс Brand Picker" />
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__card">
+              <div class="project__head">
+                <h3>КФк бизнес</h3>
+              </div>
+              <dl class="project__rows">
+                <div class="project__row">
+                  <dt>Проблема:</dt>
+                  <dd>
+                    Агентство не продвигалось в интернете по коммерческому
+                    направлению, привлечение клиентов строилось в основном через
+                    Авито и обзвон базы
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt>Решение:</dt>
+                  <dd>
+                    Разработали сайт-визитку с каталогом объектов на Tilda,
+                    подготовили SEO-основу, тексты, фото, настроили Яндекс Карты
+                    и рекламу в Директе.
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt class="result">Результат:</dt>
+                  <dd>
+                    <strong>Компания получила понятную digital-упаковку</strong>
+                    для продвижения коммерческой недвижимости в Костроме, сайт
+                    привел первые лиды.
+                  </dd>
+                </div>
+              </dl>
+              <div class="project__tags">
+                <span class="tag">Сбор семантики</span>
+                <span class="tag">Разработка дизайна</span>
+                <span class="tag">Сборка сайта на Tilda</span>
+                <span class="tag">Настройка рекламы</span>
+              </div>
+            </div>
+            <div class="project__media">
+              <img src="assets/project-kfk.png" alt="Сайт КФк бизнес" />
+            </div>
+          </article>
+
+          <article class="project project--reverse">
+            <div class="project__card">
+              <div class="project__head">
+                <h3>ИИ-ассистент для торговой компании</h3>
+              </div>
+              <dl class="project__rows">
+                <div class="project__row">
+                  <dt>Задачи:</dt>
+                  <dd>
+                    Сотрудники отдела продаж заказчика вручную обрабатывали
+                    заявки, долго искали товары в 1С, путались в поставщиках и
+                    аналогах, теряли маржу и клиентов
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt>Решение:</dt>
+                  <dd>
+                    Внедрили ИИ-ассистента, который загружает заявки из писем и
+                    файлов, восстанавливает историю продаж из 1С, запрашивает КП
+                    и формирует счет клиенту.
+                  </dd>
+                </div>
+                <div class="project__row">
+                  <dt class="result">Результат:</dt>
+                  <dd>
+                    <strong>Система ускоряет работу менеджеров,</strong>
+                    снижает зависимость от опыта конкретного сотрудника и
+                    помогает управлять продажами через данные
+                  </dd>
+                </div>
+              </dl>
+              <div class="project__tags">
+                <span class="tag">Нейропоиск по 1С</span>
+                <span class="tag">Backend-разработка, API</span>
+                <span class="tag">Поддержка и развитие</span>
+              </div>
+            </div>
+            <div class="project__media">
+              <img
+                src="assets/project-ai.svg"
+                alt="Интерфейс ИИ-ассистента"
+              />
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="about" id="about">
+        <div class="container">
+          <div class="about__top">
+            <div>
+              <h2 class="about__title">
+                <span class="accent">Команда</span>, которая строит цифровые
+                продукты<br />
+                <span class="accent">под ключ</span>
+              </h2>
+              <p class="about__text">
+                ТимЛаб — диджитал-компания полного цикла. Разрабатываем сервисы,
+                создаём и продвигаем сайты, внедряем ИИ-решения для бизнеса.
+                Прошли путь от идеи до продукта — и знаем, как это должно
+                работать на практике.
+              </p>
+            </div>
+            <div class="stats">
+              <div class="stat">
+                <div class="stat__value">6</div>
+                <div class="stat__label">лет на рынке</div>
+              </div>
+              <div class="stat">
+                <div class="stat__value">40+</div>
+                <div class="stat__label">реализованных проектов</div>
+              </div>
+              <div class="stat">
+                <div class="stat__value">2</div>
+                <div class="stat__label">собственных продукта</div>
+              </div>
+              <div class="stat">
+                <div class="stat__value">24 / 7</div>
+                <div class="stat__label">поддержка после запуска</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="values">
+            <article class="value-card">
+              <img src="assets/about-hourglass.svg" alt="" width="48" height="48" />
+              <h3>Ценим ваше и свое время</h3>
+              <p>
+                Делим проект на этапы. Вы платите только за результат каждого
+                этапа — без риска и неожиданных сюрпризов.
+              </p>
+            </article>
+            <article class="value-card">
+              <img src="assets/about-star.svg" alt="" width="48" height="48" />
+              <h3>держим фокус на качестве</h3>
+              <p>
+                Код, дизайн и UX проверяем на каждом шаге. Не отдаём «почти
+                готово» — сдаём то, чем можно пользоваться.
+              </p>
+            </article>
+            <article class="value-card">
+              <img src="assets/about-cyborg.svg" alt="" width="48" height="48" />
+              <h3>не забываем о доступности</h3>
+              <p>
+                Делаем интерфейсы понятными для людей и удобными для бизнеса:
+                скорость, ясность, поддержка на длинной дистанции.
+              </p>
+            </article>
+            <article class="value-card">
+              <img
+                src="assets/about-handshake.svg"
+                alt=""
+                width="48"
+                height="48"
+              />
+              <h3>строим надежное партнёрство</h3>
+              <p>
+                Остаёмся на связи после запуска: доработки, поддержка, развитие
+                продукта вместе с вашей командой.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="stack" id="stack">
+        <div class="container">
+          <h2 class="section-title section-title--light">
+            мы работаем на этом стеке
+          </h2>
+          <p class="section-lead section-lead--light">
+            Вот наша база по технологической части
+          </p>
+
+          <div class="stack__list">
+            <div class="stack-item">
+              <div class="stack-item__icon stack-item__icon--python">
+                <img src="assets/stack-python-1.svg" alt="" />
+                <img src="assets/stack-python-2.svg" alt="" />
+              </div>
+              <span>python</span>
+            </div>
+            <div class="stack-item">
+              <div class="stack-item__icon">
+                <img src="assets/stack-go.svg" alt="Golang" />
+              </div>
+              <span>golang</span>
+            </div>
+            <div class="stack-item">
+              <div class="stack-item__icon stack-item__icon--ts">
+                <img src="assets/stack-ts.svg" alt="" aria-hidden="true" />
+                <img src="assets/stack-ts-mark.svg" alt="TypeScript" />
+              </div>
+              <span>typescript</span>
+            </div>
+            <div class="stack-item">
+              <div class="stack-item__icon">
+                <img src="assets/stack-docker.svg" alt="Docker" />
+              </div>
+              <span>docker</span>
+            </div>
+            <div class="stack-item">
+              <div class="stack-item__icon stack-item__icon--k8s">
+                <img src="assets/stack-k8s-1.svg" alt="" />
+                <img src="assets/stack-k8s-2.svg" alt="Kubernetes" />
+              </div>
+              <span>K8S</span>
+            </div>
+            <div class="stack-item">
+              <div class="stack-item__icon">
+                <img src="assets/stack-ai.svg" alt="AI / ML" />
+              </div>
+              <span>AI / ML</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="process" id="process">
+        <div class="container">
+          <div class="process__head">
+            <h2 class="section-title">чего ждать после отправки заявки</h2>
+            <p class="section-lead" style="margin-bottom: 0; margin-inline: auto">
+              Оставьте ваши контакты и опишите свою идею/задачу в свободной форме
+            </p>
+          </div>
+
+          <div class="process__grid">
+            <div class="process__col">
+              <article class="process-step">
+                <div class="process-step__icon">
+                  <img src="assets/proc-bulb.svg" alt="" width="20" height="20" />
+                </div>
+                <div>
+                  <h3>Отправляете заявку</h3>
+                  <p>
+                    Описываете задачу в свободной форме — идею, цель, наработки.
+                    Можно прислать бриф, ТЗ или просто написать пару строк.
+                  </p>
+                </div>
+              </article>
+              <article class="process-step">
+                <div class="process-step__icon">
+                  <img src="assets/proc-search.svg" alt="" width="20" height="20" />
+                </div>
+                <div>
+                  <h3>Получаем, анализируем, оцениваем</h3>
+                  <p>
+                    Разбираемся в задаче, оцениваем сложность и сроки исполнения,
+                    формулируем гипотезы и возможные подходы к решению.
+                  </p>
+                </div>
+              </article>
+              <article class="process-step">
+                <div class="process-step__icon">
+                  <img src="assets/proc-pencil.svg" alt="" width="20" height="20" />
+                </div>
+                <div>
+                  <h3>Согласуем план и дорабатываем ТЗ</h3>
+                  <p>
+                    Вместе рассматриваем подготовленный план работ. Составляем
+                    или дорабатываем техническое задание — фиксируем все детали.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <div class="process__col">
+              <article class="process-step">
+                <div class="process-step__icon">
+                  <img src="assets/proc-code.svg" alt="" width="20" height="20" />
+                </div>
+                <div>
+                  <h3>Презентуем MVP-концепцию</h3>
+                  <p>
+                    Показываем конкретный флоу и соответствие задумке до старта
+                    разработки. Всё прозрачно — без тумана и неожиданностей.
+                  </p>
+                </div>
+              </article>
+              <article class="process-step">
+                <div class="process-step__icon">
+                  <img src="assets/proc-redo.svg" alt="" width="20" height="20" />
+                </div>
+                <div>
+                  <h3>Циклы согласований и правок</h3>
+                  <p>
+                    Это нормально и заложено в процесс. Проводим демонстрации,
+                    собираем обратную связь, дорабатываем итеративно.
+                  </p>
+                </div>
+              </article>
+              <article class="process-step">
+                <div class="process-step__icon">
+                  <img src="assets/proc-team.svg" alt="" width="20" height="20" />
+                </div>
+                <div>
+                  <h3>Презентация и командное тестирование</h3>
+                  <p>
+                    Финальная демонстрация и совместное тестирование всех
+                    сценариев. Фиксируем и закрываем последние замечания.
+                  </p>
+                </div>
+              </article>
+              <article class="process-step">
+                <div class="process-step__icon">
+                  <img src="assets/proc-rocket.svg" alt="" width="20" height="20" />
+                </div>
+                <div>
+                  <h3>Запускаем продукт — в прод!</h3>
+                  <p>
+                    Выкатываем на боевой сервер, проводим обучение команды,
+                    сдаем доступы. Дальше — поддержка и совместное развитие.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="container">
+          <h2 class="contact__title">
+            давайте обсудим вашу 💡 <span class="accent">идею</span>
+          </h2>
+          <p class="section-lead">
+            Оставьте ваши контакты и опишите свою идею/задачу в свободной форме
+          </p>
+
+          <form
+            class="form"
+            id="contact-form"
+            action="send.php"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div>
+              <div class="form__row" style="margin-bottom: 20px">
+                <label class="visually-hidden" for="name">Как к вам обращаться</label>
+                <input
+                  class="field"
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Как к вам обращаться"
+                  autocomplete="name"
+                  required
+                />
+                <label class="visually-hidden" for="company"
+                  >Название компании или ИП</label
+                >
+                <input
+                  class="field"
+                  id="company"
+                  name="company"
+                  type="text"
+                  placeholder="Название компании или ИП (необязательно)"
+                  autocomplete="organization"
+                />
+              </div>
+              <div class="form__row" style="margin-bottom: 20px">
+                <label class="visually-hidden" for="phone">Телефон</label>
+                <div class="field field--phone">
+                  <img src="assets/flag-ru.svg" alt="" width="32" height="24" />
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="+7 …"
+                    autocomplete="tel"
+                    required
+                  />
+                </div>
+                <label class="visually-hidden" for="email">Email</label>
+                <input
+                  class="field"
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="name@company.ru"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <label class="visually-hidden" for="message">Описание идеи</label>
+              <textarea
+                class="field field--area"
+                id="message"
+                name="message"
+                placeholder="Опишите идею, цель, что важно. Можно ссылку/пример."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form__attach">
+              <label class="btn btn--attach">
+                <img src="assets/icon-paperclip.svg" alt="" width="24" height="24" />
+                ПРИКРЕПИТЬ ФАЙЛ
+                <input
+                  class="visually-hidden"
+                  type="file"
+                  name="file"
+                  accept=".pdf,.docx,.png,application/pdf,image/png"
+                />
+              </label>
+              <div>
+                <p class="form__attach-hint">
+                  Сюда можно прикрепить бриф, ТЗ или любой другой документ<br />
+                  Форматы: PDF, DOCX, PNG, весом до 20 МБ
+                </p>
+                <p class="form__file-name" id="file-name" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <button class="btn btn--purple" type="submit">Отправить</button>
+            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+
+            <label class="form__consent">
+              <input type="checkbox" name="privacy" value="1" required checked />
+              <span
+                >Я ознакомился и принимаю
+                <a href="personal-data.html">политику обработки персональных данных</a></span
+              >
+            </label>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <a class="logo" href="#top" aria-label="ТимЛаб">
+              <img src="assets/logo-footer.svg" alt="ТимЛаб" />
+            </a>
+            <p>
+              Веб-сервисы и сайты для бизнеса.<br />
+              От идеи до запуска и поддержки.
+            </p>
+            <p class="footer__address">
+              Кострома, ул. Петра Щербины, 6, каб 10
+            </p>
+          </div>
+
+          <div>
+            <h4>Навигация</h4>
+            <nav class="footer__nav" aria-label="Навигация в подвале">
+              <a href="#services">Услуги</a>
+              <a href="#process">Процесс</a>
+              <a href="#cases">Кейсы</a>
+              <a href="#about">О нас</a>
+              <a href="#contact">Контакты</a>
+            </nav>
+          </div>
+
+          <div>
+            <h4>Контакты</h4>
+            <div class="footer__contacts">
+              <a href="mailto:s@sniper-search.ru">
+                <img src="assets/icon-mail.svg" alt="" width="28" height="28" />
+                s@sniper-search.ru
+              </a>
+              <a href="tel:+79956004171">
+                <img src="assets/icon-phone.svg" alt="" width="28" height="28" />
+                +7 (995) 600 - 41 - 71
+              </a>
+              <a
+                href="https://t.me/SniperSearchSupport"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src="assets/icon-tg.svg" alt="" width="28" height="28" />
+                Telegram разработчика
+              </a>
+            </div>
+          </div>
+
+          <div class="footer__actions">
+            <a class="btn btn--ghost" href="#contact">Заказать звонок</a>
+            <a class="btn btn--lime-outline" href="presentation.html">
+              <img src="assets/icon-file.svg" alt="" width="24" height="24" />
+              Скачать презентацию
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p>© 2026 Team Lab Software. Все права защищены.</p>
+          <a href="privacy.html">Политика конфиденциальности</a>
+          <a href="personal-data.html">Обработка персональных данных</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
