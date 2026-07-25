@@ -427,94 +427,6 @@ function renderProcessSteps(tabKey) {
   scheduleProcessPathUpdate();
 }
 
-function initProcessTabsScrollHint() {
-  if (!processTabs) {
-    return;
-  }
-
-  const wrap = processTabs.closest(".process-tabs-wrap");
-  if (!wrap) {
-    return;
-  }
-
-  let startScrollLeft = 0;
-  let armed = false;
-
-  function isMobileTabs() {
-    return window.matchMedia("(max-width: 900px)").matches;
-  }
-
-  function updateScrollable() {
-    if (!isMobileTabs()) {
-      wrap.classList.remove("is-scrollable");
-      return;
-    }
-    const maxScroll = processTabs.scrollWidth - processTabs.clientWidth;
-    const canScroll = maxScroll > 4;
-    const atEnd = processTabs.scrollLeft >= maxScroll - 4;
-    wrap.classList.toggle("is-scrollable", canScroll && !atEnd);
-  }
-
-  function dismissHint() {
-    wrap.classList.add("is-hint-done");
-    updateScrollable();
-  }
-
-  function arm() {
-    if (armed) {
-      return;
-    }
-    armed = true;
-    startScrollLeft = processTabs.scrollLeft;
-    updateScrollable();
-  }
-
-  updateScrollable();
-
-  processTabs.addEventListener(
-    "scroll",
-    () => {
-      updateScrollable();
-      if (!armed) {
-        startScrollLeft = processTabs.scrollLeft;
-        return;
-      }
-      if (Math.abs(processTabs.scrollLeft - startScrollLeft) > 24) {
-        dismissHint();
-      }
-    },
-    { passive: true }
-  );
-
-  window.addEventListener("resize", () => {
-    startScrollLeft = processTabs.scrollLeft;
-    updateScrollable();
-  });
-
-  window.setTimeout(arm, 400);
-
-  if (typeof IntersectionObserver !== "undefined") {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            arm();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    io.observe(wrap);
-  }
-
-  if (typeof ResizeObserver !== "undefined") {
-    const observer = new ResizeObserver(() => {
-      updateScrollable();
-    });
-    observer.observe(processTabs);
-  }
-}
-
 function initIndustriesCarousel() {
   if (!industriesCarousel) {
     return;
@@ -1362,7 +1274,6 @@ if (nav) {
 if (processTabs) {
   processTabs.addEventListener("click", onProcessTabClick);
   renderProcessSteps("dev");
-  initProcessTabsScrollHint();
 }
 
 initIndustriesCarousel();

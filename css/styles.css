@@ -1079,10 +1079,6 @@ textarea {
   margin-top: 0;
 }
 
-.process-tabs__hint {
-  display: none;
-}
-
 .process-tabs__btn {
   appearance: none;
   border: 0;
@@ -2170,7 +2166,7 @@ textarea {
 
   .industries__carousel.is-scrollable:not(.is-hint-done) .industries__hint {
     opacity: 1;
-    animation: process-tabs-hint-nudge 1.4s ease-in-out infinite;
+    animation: industries-hint-nudge 1.4s ease-in-out infinite;
   }
 
   .industries__carousel.is-hint-done .industries__hint {
@@ -2567,7 +2563,8 @@ body.is-modal-open {
 
 @media (max-width: 900px) {
   .process-tabs-wrap {
-    display: block;
+    display: flex;
+    justify-content: center;
     width: 100%;
     margin-top: 32px;
   }
@@ -2576,78 +2573,19 @@ body.is-modal-open {
     display: flex;
     width: 100%;
     max-width: 100%;
-    gap: 6px;
+    gap: 4px;
     padding: 4px;
-    overflow-x: auto;
-    overflow-y: hidden;
     box-sizing: border-box;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-  }
-
-  .process-tabs::-webkit-scrollbar {
-    display: none;
   }
 
   .process-tabs__btn {
-    flex: 0 0 auto;
-    min-width: max-content;
-    padding: 10px 18px;
-    font-size: 14px;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 13px;
     line-height: 18px;
     white-space: nowrap;
-    scroll-snap-align: start;
-  }
-
-  .process-tabs-wrap.is-scrollable::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 36px;
-    pointer-events: none;
-    border-radius: 0 8px 8px 0;
-    background: linear-gradient(
-      90deg,
-      rgba(238, 239, 244, 0),
-      rgba(238, 239, 244, 0.95)
-    );
-  }
-
-  .process-tabs__hint {
-    display: grid;
-    place-items: center;
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    width: 48px;
-    height: 48px;
-    margin-top: -24px;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 4px 14px rgba(28, 29, 49, 0.16);
-  }
-
-  .process-tabs-wrap.is-scrollable:not(.is-hint-done) .process-tabs__hint {
-    opacity: 1;
-    animation: process-tabs-hint-nudge 1.4s ease-in-out infinite;
-  }
-
-  .process-tabs-wrap.is-hint-done .process-tabs__hint {
-    opacity: 0;
-    animation: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .process-tabs__hint-hand {
-    width: 34px;
-    height: 34px;
+    text-align: center;
   }
 
   .process__head {
@@ -2717,7 +2655,7 @@ body.is-modal-open .scroll-top {
   }
 }
 
-@keyframes process-tabs-hint-nudge {
+@keyframes industries-hint-nudge {
   0%,
   100% {
     transform: translateX(0);
