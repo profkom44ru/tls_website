@@ -642,6 +642,15 @@ textarea {
   gap: 19px;
 }
 
+.industries__carousel {
+  position: relative;
+}
+
+.industries__hint,
+.industries__dots {
+  display: none;
+}
+
 .industry-card {
   background: #fff;
   border: 1px solid var(--light-grey);
@@ -2070,9 +2079,124 @@ textarea {
 
   .form__row,
   .stats,
-  .industries__grid,
   .stack__list {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .industries__carousel {
+    margin-inline: calc(-1 * var(--pad));
+  }
+
+  .industries__grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--pad);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-inline: var(--pad);
+    padding-bottom: 4px;
+  }
+
+  .industries__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .industry-card {
+    flex: 0 0 min(72vw, 240px);
+    scroll-snap-align: start;
+    padding: 32px 20px;
+  }
+
+  .industry-card__icon {
+    width: 88px;
+    height: 88px;
+    min-width: 88px;
+    min-height: 88px;
+    border-radius: 22px;
+  }
+
+  .industry-card span {
+    font-size: 16px;
+  }
+
+  .industries__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding-inline: var(--pad);
+  }
+
+  .industries__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #c8c8ca;
+    cursor: pointer;
+  }
+
+  .industries__dot.is-active {
+    background: var(--purple);
+    transform: scale(1.15);
+  }
+
+  .industries__dot:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 3px;
+  }
+
+  .industries__hint {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    right: calc(var(--pad) + 4px);
+    top: 42%;
+    width: 48px;
+    height: 48px;
+    margin-top: -24px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 4px 14px rgba(28, 29, 49, 0.16);
+  }
+
+  .industries__carousel.is-scrollable:not(.is-hint-done) .industries__hint {
+    opacity: 1;
+    animation: process-tabs-hint-nudge 1.4s ease-in-out infinite;
+  }
+
+  .industries__carousel.is-hint-done .industries__hint {
+    opacity: 0;
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .industries__carousel.is-scrollable::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 40px;
+    width: 40px;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(249, 249, 251, 0),
+      rgba(249, 249, 251, 0.96)
+    );
+  }
+
+  .industries__hint-hand {
+    width: 34px;
+    height: 34px;
   }
 
   .service-card {
@@ -2142,9 +2266,12 @@ textarea {
 @media (max-width: 520px) {
   .form__row,
   .stats,
-  .industries__grid,
   .stack__list {
     grid-template-columns: 1fr;
+  }
+
+  .industry-card {
+    flex-basis: min(78vw, 260px);
   }
 
   .logo {

@@ -5,6 +5,8 @@ const formStatus = document.getElementById("form-status");
 const attachRoot = document.getElementById("attach-root");
 const processTabs = document.getElementById("process-tabs");
 const processGrid = document.getElementById("process-grid");
+const industriesCarousel = document.getElementById("industries-carousel");
+const industriesDots = document.getElementById("industries-dots");
 const callbackModal = document.getElementById("callback-modal");
 const callbackForm = document.getElementById("callback-form");
 const callbackSuccess = document.getElementById("callback-success");
@@ -510,6 +512,153 @@ function initProcessTabsScrollHint() {
       updateScrollable();
     });
     observer.observe(processTabs);
+  }
+}
+
+function initIndustriesCarousel() {
+  if (!industriesCarousel) {
+    return;
+  }
+
+  const wrap = industriesCarousel.closest(".industries__carousel");
+  if (!wrap) {
+    return;
+  }
+
+  const cards = [...industriesCarousel.querySelectorAll(".industry-card")];
+  if (!cards.length) {
+    return;
+  }
+
+  let startScrollLeft = 0;
+  let armed = false;
+  let activeIndex = 0;
+
+  function isMobileCarousel() {
+    return window.matchMedia("(max-width: 768px)").matches;
+  }
+
+  function buildDots() {
+    if (!industriesDots) {
+      return;
+    }
+    industriesDots.innerHTML = "";
+    if (!isMobileCarousel()) {
+      return;
+    }
+    cards.forEach((card, index) => {
+      const label = card.querySelector("span")?.textContent?.trim() || `Слайд ${index + 1}`;
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "industries__dot" + (index === 0 ? " is-active" : "");
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-label", label);
+      dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
+      dot.addEventListener("click", () => {
+        card.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "nearest",
+        });
+      });
+      industriesDots.appendChild(dot);
+    });
+  }
+
+  function updateActiveDot(index) {
+    if (!industriesDots) {
+      return;
+    }
+    activeIndex = index;
+    industriesDots.querySelectorAll(".industries__dot").forEach((dot, i) => {
+      const selected = i === index;
+      dot.classList.toggle("is-active", selected);
+      dot.setAttribute("aria-selected", selected ? "true" : "false");
+    });
+  }
+
+  function syncFromScroll() {
+    if (!isMobileCarousel()) {
+      wrap.classList.remove("is-scrollable");
+      return;
+    }
+    const maxScroll = industriesCarousel.scrollWidth - industriesCarousel.clientWidth;
+    const canScroll = maxScroll > 4;
+    const atEnd = industriesCarousel.scrollLeft >= maxScroll - 4;
+    wrap.classList.toggle("is-scrollable", canScroll && !atEnd);
+
+    let nearest = 0;
+    let nearestDist = Infinity;
+    const origin = industriesCarousel.scrollLeft;
+    cards.forEach((card, index) => {
+      const dist = Math.abs(card.offsetLeft - origin);
+      if (dist < nearestDist) {
+        nearestDist = dist;
+        nearest = index;
+      }
+    });
+    updateActiveDot(nearest);
+  }
+
+  function dismissHint() {
+    wrap.classList.add("is-hint-done");
+    syncFromScroll();
+  }
+
+  function arm() {
+    if (armed) {
+      return;
+    }
+    armed = true;
+    startScrollLeft = industriesCarousel.scrollLeft;
+    syncFromScroll();
+  }
+
+  buildDots();
+  syncFromScroll();
+
+  industriesCarousel.addEventListener(
+    "scroll",
+    () => {
+      syncFromScroll();
+      if (!armed) {
+        startScrollLeft = industriesCarousel.scrollLeft;
+        return;
+      }
+      if (Math.abs(industriesCarousel.scrollLeft - startScrollLeft) > 24) {
+        dismissHint();
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", () => {
+    buildDots();
+    startScrollLeft = industriesCarousel.scrollLeft;
+    syncFromScroll();
+  });
+
+  window.setTimeout(arm, 400);
+
+  if (typeof IntersectionObserver !== "undefined") {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            arm();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(wrap);
+  }
+
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(() => {
+      syncFromScroll();
+    });
+    observer.observe(industriesCarousel);
   }
 }
 
@@ -1215,6 +1364,8 @@ if (processTabs) {
   renderProcessSteps("dev");
   initProcessTabsScrollHint();
 }
+
+initIndustriesCarousel();
 
 if (processGrid) {
   window.addEventListener("resize", scheduleProcessPathUpdate);
