@@ -185,10 +185,19 @@ let callbackPhoneCountryCode = "ru";
 let selectedCallTime = "";
 let attachState = "idle";
 
-function closeMobileNav() {
+function syncMobileNavState(isOpen) {
   if (nav) {
-    nav.classList.remove("is-open");
+    nav.classList.toggle("is-open", isOpen);
   }
+  document.body.classList.toggle("is-nav-open", isOpen);
+  if (burger) {
+    burger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    burger.setAttribute("aria-label", isOpen ? "Закрыть меню" : "Меню");
+  }
+}
+
+function closeMobileNav() {
+  syncMobileNavState(false);
 }
 
 function setFormStatus(text, type) {
@@ -204,9 +213,8 @@ function onNavLinkClick() {
 }
 
 function onBurgerClick() {
-  if (nav) {
-    nav.classList.toggle("is-open");
-  }
+  const isOpen = !(nav && nav.classList.contains("is-open"));
+  syncMobileNavState(isOpen);
 }
 
 function findCountry(code) {
@@ -1168,6 +1176,13 @@ function onDocumentClick(event) {
   ) {
     closeTimeMenu();
   }
+  if (
+    document.body.classList.contains("is-nav-open") &&
+    !event.target.closest(".nav") &&
+    !event.target.closest(".burger")
+  ) {
+    closeMobileNav();
+  }
 }
 
 function onDocumentKeydown(event) {
@@ -1175,6 +1190,7 @@ function onDocumentKeydown(event) {
     closeCallbackModal();
     closeAllCountryMenus();
     closeTimeMenu();
+    closeMobileNav();
   }
 }
 
