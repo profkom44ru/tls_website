@@ -1774,11 +1774,6 @@ textarea {
   display: none;
 }
 
-.presentation-actions .btn--purple {
-  grid-column: 1 / -1;
-  font-family: var(--font-body);
-}
-
 .presentation-actions .btn img {
   width: 24px;
   height: 24px;
@@ -1792,10 +1787,6 @@ textarea {
 
   .presentation-actions {
     grid-template-columns: 1fr;
-  }
-
-  .presentation-actions .btn--purple {
-    grid-column: auto;
   }
 }
 
